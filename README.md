@@ -51,3 +51,21 @@ The candidate keys we have selected are:
 Note: A primary key is selected from the set of candidate keys. That means we can either have Emp_Id or Emp_Number as primary key. The decision is made by DBA (Database administrator)
 # Record or Tuple
 Each row of a table is known as record. It is also known as tuple. 
+
+# ACID Properties
+To ensure the integrity of data during a transaction, the database system maintains the following properties
+  - ## Atomicity
+     if any operation is performed on the data, either it should be executed completely or should not be executed at all. It further means that the operation should not break in between or execute partially.
+     
+     Suppose Account A has a balance of 400$ & B has 700$. Account A is transferring 100$ to Account B. This is a transaction that has two operations a) Debiting 100$ from A’s balance b) Creating 100$ to B’s balance. Let’s say first operation passed successfully while second failed, in this case A’s balance would be 300$ while B would be having 700$ instead of 800$.Either the transaction should fail without executing any of the operation or it should process both the operations. The Atomicity property ensures that.
+  - ## Consistency
+    The database must be consistent before and after the transaction.
+     - If the transaction completed successfully, then it will apply all the changes to the database.
+     - If there is an error in a transaction, then all the changes that already made will be rolled back automatically. It means the database will restore to its state that it had before the transaction started.
+    - If there is a system failure in the middle of the transaction, then also, all the changes made already will automatically rollback. 
+    
+    For example account A is having a balance of 400$ and it is transferring 100$ to account B & C both. So we have two transactions here. Let’s say these transactions run concurrently and both the transactions read 400$ balance, in that case the final balance of A would be 300$ instead of 200$. This is wrong. If the transaction were to run in isolation then the second transaction would have read the correct balance 300$ (before debiting 100$) once the first transaction went successful.
+ - ## Isolation
+   The term 'isolation' means separation. Multiple transactions occur independently without interference. 
+  
+     Isolation ensures that concurrent execution of transactions leaves the database in the same state that would have been obtained if the transactions were executed   sequentially.Every transaction is individual, and One transaction can’t access the result of other transactions until the transaction completed.  It's example discussed above in consistency.
