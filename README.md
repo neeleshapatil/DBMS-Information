@@ -16,6 +16,9 @@ Candidate keys are those attributes that uniquely identify rows of a table. The 
 # Alternate Key
 As stated above, a table can have multiple choices for a primary key; however, it can choose only one. So, all the keys which did not become the primary Key are called alternate keys.
 
+# Composite Key
+A key that has more than one attributes is known as composite key. The attributes in the set may not be unique when considered separately. However, when taken all together, they will ensure uniqueness.
+
 #
 |Emp_Id |	Emp_Number |	Emp_Name
 |------ |----------  |    --------
@@ -46,3 +49,5 @@ The candidate keys we have selected are:
 {Emp_Number}
 
 Note: A primary key is selected from the set of candidate keys. That means we can either have Emp_Id or Emp_Number as primary key. The decision is made by DBA (Database administrator)
+# Record or Tuple
+Each row of a table is known as record. It is also known as tuple. 
