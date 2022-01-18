@@ -1,22 +1,22 @@
 # DBMS-Information
 DBMS Interview Questions
-# PRIMARY KEY Constraint
+# 1) PRIMARY KEY Constraint
 The PRIMARY KEY constraint uniquely identifies each record in a table. Primary keys must contain UNIQUE values, and cannot contain NULL values. A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns.
-# UNIQUE Constraint
+# 2) UNIQUE Constraint
 Both the UNIQUE and PRIMARY KEY constraints provide a guarantee for uniqueness for a column or set of columns.A PRIMARY KEY constraint automatically has a UNIQUE constraint.
 However, you can have many UNIQUE constraints per table, but only one PRIMARY KEY constraint per table. Primary key cannot have NULL value, the unique constraints can have only one NULL value. The primary key creates the cluster index automatically but the Unique key does not.
-# FOREIGN KEY Constraint
+# 3) FOREIGN KEY Constraint
 The FOREIGN KEY constraint prevents invalid data from being inserted into the foreign key column, because it has to be one of the values contained in the parent table.
 A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the PRIMARY KEY in another table.The table with the foreign key is called the child table, and the table with the primary key is called the referenced or parent table.
 
 That is, this field points to primary key of another table. This usually creates a kind of link between the two tables.
-# Candidate Key
+# 4) Candidate Key
 Candidate keys are those attributes that uniquely identify rows of a table. The Primary Key of a table is selected from one of the candidate keys. So, candidate keys have the same properties as the primary keys explained above. There can be more than one candidate keys in a table.
 
-# Alternate Key
+# 5) Alternate Key
 As stated above, a table can have multiple choices for a primary key; however, it can choose only one. So, all the keys which did not become the primary Key are called alternate keys.
 
-# Composite Key
+# 6) Composite Key
 A key that has more than one attributes is known as composite key. The attributes in the set may not be unique when considered separately. However, when taken all together, they will ensure uniqueness.
 
 #
@@ -52,7 +52,7 @@ Note: A primary key is selected from the set of candidate keys. That means we ca
 # Record or Tuple
 Each row of a table is known as record. It is also known as tuple. 
 
-# ACID Properties
+# 7) ACID Properties
 To ensure the integrity of data during a transaction, the database system maintains the following properties
   - ## Atomicity
      if any operation is performed on the data, either it should be executed completely or should not be executed at all. It further means that the operation should not break in between or execute partially.
@@ -69,3 +69,16 @@ To ensure the integrity of data during a transaction, the database system mainta
    The term 'isolation' means separation. Multiple transactions occur independently without interference. 
   
      Isolation ensures that concurrent execution of multiple transactions leaves the database in the same state that would have been obtained if the transactions were executed   sequentially.Every transaction is individual, and One transaction can’t access the result of other transactions until the transaction completed.  It's example discussed above in consistency.
+ - ## Durability
+   Durability guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure which actually means recording the completed   transactions (or their effects) in non-volatile memory.
+# 8) Normalization of Database
+Normalization is a systematic approach of decomposing tables to eliminate data redundancy(repetition) and undesirable characteristics like Insertion, Update and Deletion Anomalies. It reduce the amount of space a database consumes.
+    Normalization is used for mainly two purposes,
+
+     Eliminating redundant(useless) data.
+     Ensuring data dependencies make sense i.e data is logically stored.
+ # 9) 1st Normal form 
+ 
+  |Emp_Id |	Emp Name |	Phone Number | Salary
+  |------ |----------|   ------      | ----
+  
