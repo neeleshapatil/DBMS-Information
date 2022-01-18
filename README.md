@@ -68,4 +68,4 @@ To ensure the integrity of data during a transaction, the database system mainta
  - ## Isolation
    The term 'isolation' means separation. Multiple transactions occur independently without interference. 
   
-     Isolation ensures that concurrent execution of transactions leaves the database in the same state that would have been obtained if the transactions were executed   sequentially.Every transaction is individual, and One transaction can’t access the result of other transactions until the transaction completed.  It's example discussed above in consistency.
+     Isolation ensures that concurrent execution of multiple transactions leaves the database in the same state that would have been obtained if the transactions were executed   sequentially.Every transaction is individual, and One transaction can’t access the result of other transactions until the transaction completed.  It's example discussed above in consistency.
