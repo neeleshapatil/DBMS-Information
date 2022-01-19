@@ -68,7 +68,9 @@ To ensure the integrity of data during a transaction, the database system mainta
  - ## Isolation
    The term 'isolation' means separation. Multiple transactions occur independently without interference. 
   
-     Isolation ensures that concurrent execution of multiple transactions leaves the database in the same state that would have been obtained if the transactions were executed   sequentially.Every transaction is individual, and One transaction can’t access the result of other transactions until the transaction completed.  It's example discussed above in consistency.
+     Isolation ensures that concurrent execution of multiple transactions leaves the database in the same state that would have been obtained if the transactions were executed   sequentially.
+     
+     Every transaction is individual, and One transaction can’t access the result of other transactions until the transaction completed.  It's example discussed above in consistency.
  - ## Durability
    Durability guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure which actually means recording the completed   transactions (or their effects) in non-volatile memory.
 # 8) Normalization of Database
@@ -102,7 +104,7 @@ A database is in first normal form if it satisfies the following conditions:
    - There are no repeating groups -
 A repeating group means that a table contains two or more columns that are closely related. For example, a table that records data on a book and its author(s) with the following columns: [Book ID], [Author 1], [Author 2], [Author 3] is not in 1NF because [Author 1], [Author 2], and [Author 3] are all repeating the same attribute.
 
-# 10) First Normal Form
+# 10) Second Normal Form
 
 For a table to be in the Second Normal form
 
@@ -110,3 +112,49 @@ For a table to be in the Second Normal form
  - All non-key attributes are fully functional dependent on the primary key
     
     Partial Dependency exists, when for a composite primary key, any non- key attribute in the table depends only on a part of the primary key and not on the complete primary key. To remove Partial dependency, we can divide the table, remove the attribute which is causing partial dependency, and move it to some other table.
+    
+# 11) Third Normal form
+
+When a table is in the Second Normal Form and has no transitive dependency, then it is in the Third Normal Form.
+
+By its nature, a transitive dependency requires three or more attributes that have a functional dependency between them, meaning that column A is functionally dependent on column B, and column B is functionally dependent on column C. In this case, C is transitively dependent on A via B.
+
+| Author_ID	| Author	| Book	| Author_Nationality
+ |------ |----------|   ------ | ----
+|Auth_001	|Orson Scott | Card	Ender's Game	| United States
+| Auth_001	| Orson Scott | Card	Children of the Mind	| United States
+|Auth_002	|Margaret Atwood	|The Handmaid's Tale |	Canada
+
+
+In the AUTHORS example above:
+
+- Book → Author: Here, the Book attribute determines the Author attribute. If you know the book name, you can learn the author's name. However, Author doesn't determine Book, because an author can write multiple books. For example, just because we know the author's name is Orson Scott Card, we still don't know the book name.
+
+- Author → Author_Nationality: Likewise, the Author attribute determines the Author_Nationality, but not the other way around—just because we know the author's nationality doesn't mean we can determine the author.
+
+But this table introduces a transitive dependency:
+
+- Book →Author_Nationality: If we know the book name, we can determine the author's nationality via the Author column.
+
+- The advantage of removing transitive dependency is,
+
+   - Amount of data duplication is reduced.
+   - Data integrity achieved
+
+# 12) Why Transitive Dependencies Are Bad Database Design
+What is the value of avoiding transitive dependencies to help ensure 3NF? Let's consider our first table again and see the issues it creates:
+
+AUTHORS
+
+|Author_ID	|Author	|Book	|Author_Nationality
+|------ |----------|   ------ | ----
+|Auth_001	|Orson Scott Card|	Ender's Game|	United States
+|Auth_001	|Orson Scott Card	|Children of the Mind|	United States
+|Auth_002|	Margaret Atwood|	The Handmaid's Tale|	Canada
+
+This kind of design can contribute to data anomalies and inconsistencies, for example:
+
+- If you deleted the two books Children of the Mind and Ender's Game, you would delete the author "Orson Scott Card" and his nationality completely from the database.
+- You cannot add a new author to the database unless you also add a book. What if the author is yet unpublished or you don't know the name of a book they authored?
+- If "Orson Scott Card" changed his citizenship, you would have to change his citizenship in all records in which he appears. Having multiple records with the same author can result in inaccurate data. What if the data entry person doesn't realize there are multiple records for someone, and changes the data in only one record?
+- You can't delete a book such as The Handmaid's Tale without also completely deleting the author.
