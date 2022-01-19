@@ -74,11 +74,39 @@ To ensure the integrity of data during a transaction, the database system mainta
 # 8) Normalization of Database
 Normalization is a systematic approach of decomposing tables to eliminate data redundancy(repetition) and undesirable characteristics like Insertion, Update and Deletion Anomalies. It reduce the amount of space a database consumes.
     Normalization is used for mainly two purposes,
-
-     Eliminating redundant(useless) data.
-     Ensuring data dependencies make sense i.e data is logically stored.
+     
+     - Eliminating redundant(useless) data.
+     - Ensuring data dependencies make sense i.e data is logically stored.
  # 9) 1st Normal form 
  
   |Emp_Id |	Emp Name |	Phone Number | Salary
   |------ |----------|   ------      | ----
+  | E01    | Alex    | +1 20155,  +1 20144     | 60,000
+  | E02   | Barry |  +1 20166     | 48000
+  | E03   | Clair | +1 20177 |22,000
   
+  Single cell can not hold multiple values - Atomocity
+  
+  Table in 1st Normal form
+   |Emp_Id |	Emp Name |	Phone Number | Salary
+  |------ |----------|   ------      | ----
+  | E01    | Alex    | +1 20155    | 60000
+  | E01    | Alex   |+1 20144|60000
+  | E02   | Barry |  +1 20166     | 48000
+  | E03   | Clair | +1 20177 |22,000
+
+A database is in first normal form if it satisfies the following conditions:
+
+   - Contains only atomic values -
+       An atomic value is a value that cannot be divided. For example, in the table shown above, phone number column holds multiple values. It should only have single(atomic) valued attributes/columns
+   - There are no repeating groups -
+A repeating group means that a table contains two or more columns that are closely related. For example, a table that records data on a book and its author(s) with the following columns: [Book ID], [Author 1], [Author 2], [Author 3] is not in 1NF because [Author 1], [Author 2], and [Author 3] are all repeating the same attribute.
+
+# 10) First Normal Form
+
+For a table to be in the Second Normal form
+
+ - It is in first normal form
+ - All non-key attributes are fully functional dependent on the primary key
+    
+    Partial Dependency exists, when for a composite primary key, any non- key attribute in the table depends only on a part of the primary key and not on the complete primary key. To remove Partial dependency, we can divide the table, remove the attribute which is causing partial dependency, and move it to some other table.
