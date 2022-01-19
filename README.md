@@ -109,7 +109,7 @@ A repeating group means that a table contains two or more columns that are close
 For a table to be in the Second Normal form
 
  - It is in first normal form
- - All non-key attributes are fully functional dependent on the primary key
+ - All non-key attributes are fully functional dependent on the primary key. Their is no Partial Dependency.
     
     Partial Dependency exists, when for a composite primary key, any non- key attribute in the table depends only on a part of the primary key and not on the complete primary key. To remove Partial dependency, we can divide the table, remove the attribute which is causing partial dependency, and move it to some other table.
     
@@ -136,7 +136,7 @@ But this table introduces a transitive dependency:
 
 - Book →Author_Nationality: If we know the book name, we can determine the author's nationality via the Author column.
 
-- The advantage of removing transitive dependency is,
+The advantage of removing transitive dependency is,
 
    - Amount of data duplication is reduced.
    - Data integrity achieved
@@ -158,3 +158,30 @@ This kind of design can contribute to data anomalies and inconsistencies, for ex
 - You cannot add a new author to the database unless you also add a book. What if the author is yet unpublished or you don't know the name of a book they authored?
 - If "Orson Scott Card" changed his citizenship, you would have to change his citizenship in all records in which he appears. Having multiple records with the same author can result in inaccurate data. What if the data entry person doesn't realize there are multiple records for someone, and changes the data in only one record?
 - You can't delete a book such as The Handmaid's Tale without also completely deleting the author.
+
+# 13) Boyce Codd normal form (BCNF) or 3.5NF
+To understand more, few concepts need to be discussed, such as keys and attributes.
+
+Attributes: Attributes that are a part of the candidate key are called prime attributes, and the rest of the attributes are known as Non-prime attributes.
+
+Super Key: This is the combination of columns that will uniquely identify the rows in a table. A candidate key is selected from the given super keys based on the minimum number of attributes. And the primary key is one among the candidate keys.
+
+It should satisfy the following two conditions:
+ - It should be in the Third Normal Form.
+ - And, for any dependency A → B (read as “A determines B”), A should be a super key.
+The second point means, that for a dependency A → B, A cannot be a non-prime attribute, if B is a prime attribute.
+
+Relation:
+Person(SSN, Name, BirthMonth, ZodiacSign)
+SSN->Name, BirthMonth
+BirthMonth->ZodiacSign
+
+ - A person has a social security number (SSN) which determines their name and birth month. A person’s birth month determines their zodiac sign.
+- The original Person relation is not in BCNF because BirthMonth from the functional dependency BirthMonth->ZodiacSign is not a super key
+- 
+We need to decompose orginal relation
+
+R1(BirthMonth, ZodiacSign) where BirthMonth->ZodiacSign
+R2(SSN, Name, BirthMonth) where SSN->Name,BirthMonth
+
+In this decomposition, BirthMonth is a super key in R1 and SSN is a super key in R2, so R1 and R2 are a BCNF decomposition of Person.
