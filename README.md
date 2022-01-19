@@ -190,7 +190,7 @@ In this decomposition, BirthMonth is a super key in R1 and SSN is a super key in
 
 # 14) DDL – Data Definition Language
 
-DDL is a set of SQL commands used to create, modify, and delete database structures but not data
+DDL is a set of SQL commands used to create, modify, and delete database structures but not data. CREATE, DROP, ALTER, RENAME, TRUNCATE
 
 CREATE: This command is used to create the database or its objects (like table, index, function, views, store procedure, and triggers).
 ```
@@ -236,7 +236,7 @@ COMMENT: This is used to add comments to the data dictionary.
 
 The SQL commands that deals with the manipulation of data present in the database belong to DML or Data Manipulation Language and this includes most of the SQL statements. It is the component of the SQL statement that controls access to data and to the database. 
 
-List of DML commands: 
+List of DML commands: INSERT, UPDATE  , DELETE , LOCK etc.
 
 INSERT : It is used to insert data into a table.
 ```
@@ -286,5 +286,23 @@ WHERE EXISTS (SELECT customers.city
               WHERE customers.customer_name = suppliers.supplier_name);
 ```
 DELETE : It is used to delete records from a database table.
-
+```
+DELETE FROM customers
+WHERE last_name = 'Smith';
+```
 LOCK: Table control concurrency.
+
+# 15) DCL - Data Control Language. 
+SQL queries like GRANT and REVOKE come under this.
+
+# 16) TCL (Transaction Control Language) :
+Transaction Control Language commands are used to manage transactions in the database.
+```
+COMMIT: Commit command is used to permanently save any transaction into the database.
+
+ROLLBACK: This command restores the database to last committed state.
+It is also used with savepoint command to jump to a savepoint in a transaction.
+
+SAVEPOINT: Savepoint command is used to temporarily save a transaction so that 
+you can rollback to that point whenever necessary.
+```
