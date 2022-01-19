@@ -229,7 +229,7 @@ RENAME COLUMN customer_name TO cname
 ALTER TABLE customers
 RENAME TO contacts
 ```
-TRUNCATE: This is used to remove all records from a table, including all spaces allocated for the records are removed.
+TRUNCATE: It is used to delete all the rows of a relation (table) in one go. With the help of the “TRUNCATE” command, we can’t delete the single row as here WHERE clause is not used. By using this command the existence of all the rows of the table is lost. It is comparatively faster than the delete command as it deletes all the rows fastly. Here we can’t restore the tuples of the table by using the “ROLLBACK” command.
 
 COMMENT: This is used to add comments to the data dictionary.
 # 15) DML(Data Manipulation Language)
@@ -306,3 +306,15 @@ It is also used with savepoint command to jump to a savepoint in a transaction.
 SAVEPOINT: Savepoint command is used to temporarily save a transaction so that 
 you can rollback to that point whenever necessary.
 ```
+# 17) DELETE VS TRUNCATE
+| DELETE | TRUNCATE
+| -----   |  -------
+| DML(Data Manipulation Language) command |DDL(Data Definition Language) command
+|DELETE command is used to delete specified rows(one or more) | It is used to delete all the rows from a table
+|You can give WHERE clause in the DELETE command | There is no WHERE clause in the TRUNCATE command.
+| Slower | Faster
+| DELETE is a DML Command so it can be rolled back |TRUNCATE TABLE statement is a DDL command so it can not be rolled back.
+
+# 18) What is the difference between DROP and TRUNCATE?
+
+TRUNCATE removes all rows from the table which cannot be retrieved back, DROP removes the entire table from the database and it cannot be retrieved back. Both are DDL Commands
