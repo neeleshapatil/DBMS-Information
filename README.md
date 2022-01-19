@@ -318,3 +318,37 @@ you can rollback to that point whenever necessary.
 # 18) What is the difference between DROP and TRUNCATE?
 
 TRUNCATE removes all rows from the table which cannot be retrieved back, DROP removes the entire table from the database and it cannot be retrieved back. Both are DDL Commands
+
+# 19) View
+A view is a virtual table and you can use it like a table in your SQL queries.Unlike a table, a view does not store any data. It is just a named query stored in the database, When you query data from a view, Oracle uses this stored query to retrieve the data from the underlying tables
+
+- Updatable-view
+ Some views are updatable and you can use them in statements such as UPDATE, DELETE, or INSERT to update the contents of the underlying table. For a view to be updatable, there must be a one-to-one relationship between the rows in the view and the rows in the underlying table. 
+ 
+ To be more specific, a view is not updatable if it contains any of the following:
+
+- Aggregate functions or window functions (SUM(), MIN(), MAX(), COUNT(), and so forth)
+
+- DISTINCT
+
+- GROUP BY
+
+- HAVING
+
+- UNION or UNION ALL
+
+- Subquery in the select list etc.
+
+It is sometimes possible for a multiple-table view to be updatable, assuming that it can be processed with the MERGE algorithm. For this to work, the view must use an inner join (not an outer join or a UNION). Also, only a single table in the view definition can be updated, so the SET clause must name only columns from one of the tables in the view.
+
+# 20) What is CHECK Constraint?
+
+The CHECK constraint is used to limit the value range that can be placed in a column.
+
+If you define a CHECK constraint on a single column it allows only certain values for this column.
+
+If you define a CHECK constraint on a table it can limit the values in certain columns based on values in other columns in the row.
+
+# 21) SQL CROSS JOIN
+
+The SQL CROSS JOIN produces a result set which is the number of rows in the first table multiplied by the number of rows in the second table if no WHERE clause is used along with CROSS JOIN .This kind of result is called as Cartesian Product.
