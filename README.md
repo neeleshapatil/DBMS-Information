@@ -173,7 +173,9 @@ The second point means, that for a dependency A → B, A cannot be a non-prime a
 
 Relation:
 Person(SSN, Name, BirthMonth, ZodiacSign)
+
 SSN->Name, BirthMonth
+
 BirthMonth->ZodiacSign
 
  - A person has a social security number (SSN) which determines their name and birth month. A person’s birth month determines their zodiac sign.
@@ -185,3 +187,104 @@ R1(BirthMonth, ZodiacSign) where BirthMonth->ZodiacSign
 R2(SSN, Name, BirthMonth) where SSN->Name,BirthMonth
 
 In this decomposition, BirthMonth is a super key in R1 and SSN is a super key in R2, so R1 and R2 are a BCNF decomposition of Person.
+
+# 14) DDL – Data Definition Language
+
+DDL is a set of SQL commands used to create, modify, and delete database structures but not data
+
+CREATE: This command is used to create the database or its objects (like table, index, function, views, store procedure, and triggers).
+```
+CREATE TABLE customers
+( customer_id number(10) NOT NULL,
+  customer_name varchar2(50) NOT NULL,
+  city varchar2(50)
+);
+```
+DROP: This command is used to delete objects from the database. Issue a PURGE so that the space associated with the customers table is released
+```
+DROP TABLE customers PURGE;
+```
+ALTER: This is used to alter the structure of the database.
+```
+ALTER TABLE Customers
+ADD Email varchar(255);
+```
+```
+ALTER TABLE Customers
+DROP COLUMN Email
+```
+Modify existing column
+```
+ALTER TABLE customers
+MODIFY customer_name varchar2(100) NOT NULL
+```
+
+RENAME: This is used to rename an object existing in the database. You can rename table name or column name etc.
+
+```
+ALTER TABLE customers
+RENAME COLUMN customer_name TO cname
+```
+```
+ALTER TABLE customers
+RENAME TO contacts
+```
+TRUNCATE: This is used to remove all records from a table, including all spaces allocated for the records are removed.
+
+COMMENT: This is used to add comments to the data dictionary.
+# 15) DML(Data Manipulation Language)
+
+The SQL commands that deals with the manipulation of data present in the database belong to DML or Data Manipulation Language and this includes most of the SQL statements. It is the component of the SQL statement that controls access to data and to the database. 
+
+List of DML commands: 
+
+INSERT : It is used to insert data into a table.
+```
+INSERT INTO suppliers
+(supplier_id, supplier_name)
+VALUES
+(5000, 'Apple');
+```
+Insert using select
+```
+INSERT INTO suppliers
+(supplier_id, supplier_name)
+SELECT account_no, name
+FROM customers
+WHERE customer_id > 5000
+```
+How do I make sure that I do not enter the same client information again while inserting new records to table Clients
+```
+INSERT INTO clients
+(client_id, client_name, client_type)
+SELECT supplier_id, supplier_name, 'advertising'
+FROM suppliers
+WHERE NOT EXISTS (SELECT *
+                  FROM clients
+                  WHERE clients.client_id = suppliers.supplier_id);
+```
+UPDATE: It is used to update existing data within a table.
+
+This Oracle UPDATE statement example would update the state to 'California' and the customer_rep to 32 where the customer_id is greater than 100
+```
+UPDATE customers
+SET state = 'California',
+customer_rep = 32
+WHERE customer_id > 100
+```
+
+
+Based on the suppliers and customers table , update the city in the suppliers table with the city in the customers table when the supplier_name in the suppliers table matches the customer_name in the customers table
+
+```
+UPDATE suppliers
+SET city = (SELECT customers.city
+            FROM customers
+            WHERE customers.customer_name = suppliers.supplier_name)
+WHERE EXISTS (SELECT customers.city
+              FROM customers
+              WHERE customers.customer_name = suppliers.supplier_name);
+```
+DELETE : It is used to delete records from a database table.
+
+LOCK: Table control concurrency.
